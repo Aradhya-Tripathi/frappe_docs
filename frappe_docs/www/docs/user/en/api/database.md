@@ -116,6 +116,11 @@ frappe.db.count('Task')
 
 # total number of Open tasks
 frappe.db.count('Task', {'status': 'Open'})
+frappe.db.count('Test Table', {'age': ('<', 10)})
+
+from frappe.query_builder import Field
+frappe.db.count('Test Table', filters=(Field("Name") == "test user") | (Field("Age") < 10))
+
 ```
 
 ## frappe.db.delete
@@ -134,6 +139,12 @@ frappe.db.delete("Route History", {
 
 frappe.db.delete("Error Log")
 frappe.db.delete("__Test Table")
+
+frappe.db.delete("Test Table", {"age": ("between", (10, 20))})
+
+from frappe.query_builder import Field
+frappe.db.delete('Test Table', filters=(Field("Name") == "test user") | (Field("Age").isin([1, 2, 3, 4])))
+
 ```
 
 You may pass the doctype name or an internal table name. Conventionally,

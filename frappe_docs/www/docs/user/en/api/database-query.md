@@ -37,7 +37,13 @@ Out[2]: [{'name': 'SUjXJ1Wa0R'}, {'name': 'tUSNajSteH'}, {'name': '2sC3n9l0N0'}]
 
 ### Filter Object Notation
 
-> TODO: Add introductory content & examples
+
+This allows ```frappe.qb``` objects to be passed directly as filters.
+In [1]: doctype = frappe.qb.DocType("Test Table")
+
+In [2]: frappe.db.delete(doctype, filters=(doctype.name=="TestUser") | (doctype.age==10), run=False)
+Out [2]: DELETE FROM "tabTest Table" WHERE "name"=\'TestUser\' OR "age"=10
+
 
 ## frappe.db.get_list
 

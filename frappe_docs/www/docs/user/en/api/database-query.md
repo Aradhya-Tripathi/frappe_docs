@@ -39,11 +39,21 @@ Out[2]: [{'name': 'SUjXJ1Wa0R'}, {'name': 'tUSNajSteH'}, {'name': '2sC3n9l0N0'}]
 
 
 This allows ```frappe.qb``` objects to be passed directly as filters.
-In [1]: doctype = frappe.qb.DocType("Test Table")
 
-In [2]: frappe.db.delete(doctype, filters=(doctype.name=="TestUser") | (doctype.age==10), run=False)
+In [1] test_table = frappe.qb.DocType("Test Table")
+
+In [2]: frappe.db.delete(test_table, filters=(test_table.name=="TestUser") | (test_table.age==10), run=False)
+
 Out [2]: DELETE FROM "tabTest Table" WHERE "name"=\'TestUser\' OR "age"=10
 
+In [3]: test_table = frappe.qb.DocType("User")
+
+In [4]: frappe.db.get_value(test_table,
+		filters=(test_table.email=="admin@localhost.com") | (test_table.name.like("Administrator")),
+		fieldname=["name"], debug=True)
+out [4]: SELECT "name" FROM "tabUser" WHERE "email"='example@localhost.com' OR "name" LIKE 'Example'
+		 Execution time: 0.1 sec
+		 'Administrator'
 
 ## frappe.db.get_list
 

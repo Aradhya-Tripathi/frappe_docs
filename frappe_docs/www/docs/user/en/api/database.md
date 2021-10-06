@@ -48,6 +48,14 @@ task_dict.description
 
 # with filters, will return the first record that matches filters
 subject, description = frappe.db.get_value('Task', {'status': 'Open'}, ['subject', 'description'])
+# With complex filters, will return the first record that matches the filters
+doctype = frappe.qb.DocType('User')
+user_details = frappe.db.get_value(
+	doctype=doctype,
+	filters=(doctype.name == 'Guest') | (doctype.email.like('guest@email.com')),
+	fieldname='name'
+})
+
 ```
 
 ## frappe.db.get\_single\_value

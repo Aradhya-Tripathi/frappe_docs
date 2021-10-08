@@ -53,14 +53,15 @@ In [2] test_table = DocType("Test Table")
 
 In [3]: frappe.db.delete(test_table, filters=(test_table.name=="TestUser") | (test_table.age==10), run=False)
 
-Out [3]: DELETE FROM "tabTest Table" WHERE "name"=\'TestUser\' OR "age"=10
+Out[3]: DELETE FROM "tabTest Table" WHERE "name"=\'TestUser\' OR "age"=10
 
 In [4]: test_table = DocType("User")
 
 In [5]: frappe.db.get_value(test_table,
 		filters=(test_table.email=="admin@localhost.com") | (test_table.name.like("Administrator")),
 		fieldname=["name"], debug=True)
-out [5]: SELECT "name" FROM "tabUser" WHERE "email"='example@localhost.com' OR "name" LIKE 'Example'
+
+out[5]: SELECT "name" FROM "tabUser" WHERE "email"='example@localhost.com' OR "name" LIKE 'Example'
 		 Execution time: 0.1 sec
 		 'Administrator'
 ```

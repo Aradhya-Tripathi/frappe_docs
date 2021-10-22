@@ -153,7 +153,15 @@ frappe.db.delete("Test Table", {"age": ("between", (10, 20))})
 from frappe.query_builder import Field
 frappe.db.delete('Test Table', filters=(Field("Name") == "test user") | (Field("Age").isin([1, 2, 3, 4])))
 
+from frappe.query_builder import DocType, Interval
+from frappe.query_builder.functions import Now
+from pypika.terms import PseudoColumn
+error_log = DocType("Error Log")
+frappe.db.delete(error_log, filters=(
+	error_log.creation < PseudoColumn(f"({Now() - Interval(days=90)})")
+))
 ```
+
 
 You may pass the doctype name or an internal table name. Conventionally,
 internal tables in Frappe are prefixed with `__`. The API follows this.

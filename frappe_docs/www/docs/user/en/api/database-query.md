@@ -54,7 +54,9 @@ In [2] test_table = DocType("Test Table")
 In [3]: frappe.db.delete(test_table, filters=(test_table.name=="TestUser") | (test_table.age==10), run=False)
 
 Out[3]: DELETE FROM "tabTest Table" WHERE "name"=\'TestUser\' OR "age"=10
-
+```
+Query below selects `name` form `tabUser` matching the filters passed as `frappe.qb` objects.
+```bash
 In [4]: test_table = DocType("User")
 
 In [5]: frappe.db.get_value(test_table,
